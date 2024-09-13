@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMachineDto } from './dto/create-machine.dto';
-import { UpdateMachineDto } from './dto/update-machine.dto';
+import { CreateAreaDto } from './dto/create-area.dto';
+import { UpdateAreaDto } from './dto/update-area.dto';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { Machine } from 'src/schemas/machine.schema';
+import { Area } from 'src/schemas/area.schema';
 import { mongoErrorHandler } from 'src/utils/mongo-error-handler';
 import { MongoError } from 'mongodb';
 
 @Injectable()
-export class MachineService {
-  constructor(@InjectModel(Machine.name) private machineModel: Model<Machine>) {}
+export class AreaService {
+  constructor(@InjectModel(Area.name) private areaModel: Model<Area>) {}
 
-  async create(createMachineDto: CreateMachineDto) {
+  async create(createAreaDto: CreateAreaDto) {
     try {
-      return await this.machineModel.create(createMachineDto);
+      return await this.areaModel.create(createAreaDto);
     } catch (error) {
       if ((error as Record<string, number>)?.code)
         mongoErrorHandler(error as MongoError);
@@ -22,16 +22,16 @@ export class MachineService {
   }
 
   async findAll() {
-    return await this.machineModel.find().exec();
+    return await this.areaModel.find().exec();
   }
 
   async findOne(id: string) {
-    return await this.machineModel.findById(id).exec();
+    return await this.areaModel.findById(id).exec();
   }
 
-  async update(id: string, updateMachineDto: UpdateMachineDto) {
+  async update(id: string, updateAreaDto: UpdateAreaDto) {
     try {
-      return await this.machineModel.updateOne({ _id: id }, updateMachineDto);
+      return await this.areaModel.updateOne({ _id: id }, updateAreaDto);
     } catch (error: unknown) {
       if ((error as Record<string, number>)?.code)
         mongoErrorHandler(error as MongoError);
@@ -40,6 +40,6 @@ export class MachineService {
   }
 
   async remove(id: string) {
-    return await this.machineModel.deleteOne({ _id: id});
+    return await this.areaModel.deleteOne({ _id: id});
   }
 }

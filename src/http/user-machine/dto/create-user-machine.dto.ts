@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsOptional } from 'class-validator';
-export class CreateMachineDto {
+export class CreateUserMachineDto {
     @IsNotEmpty()
     name?: string;
 

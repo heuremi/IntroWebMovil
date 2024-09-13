@@ -5,6 +5,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './http/user/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MachineModule } from './http/machine/machine.module';
+import { CompanyModule } from './http/company/company.module';
+import { AreaModule } from './http/area/area.module';
+import { UserMachineModule } from './http/user-machine/user-machine.module';
 
 @Module({
   imports: [
@@ -21,6 +24,12 @@ import { MachineModule } from './http/machine/machine.module';
     UserModule,
 
     MachineModule,
+
+    CompanyModule,
+
+    AreaModule,
+
+    UserMachineModule,
   ],
   controllers: [AppController],
   providers: [AppService],
