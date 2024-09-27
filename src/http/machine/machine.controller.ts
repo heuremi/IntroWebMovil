@@ -11,6 +11,8 @@ import {
 import { MachineService } from './machine.service';
 import { CreateMachineDto } from './dto/create-machine.dto';
 import { UpdateMachineDto } from './dto/update-machine.dto';
+import { DeleteResult } from 'mongodb';
+
 
 @Controller('machine')
 export class MachineController {
@@ -37,7 +39,7 @@ export class MachineController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: string):Promise<DeleteResult> {
     return this.machineService.remove(id);
   }
 }

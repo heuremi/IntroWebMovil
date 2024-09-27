@@ -7,6 +7,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MachineModule } from './http/machine/machine.module';
 import { CompanyModule } from './http/company/company.module';
 import { AreaModule } from './http/area/area.module';
+import { AuthModule } from './auth/auth.module';
 import { UserMachineModule } from './http/user-machine/user-machine.module';
 
 @Module({
@@ -30,6 +31,8 @@ import { UserMachineModule } from './http/user-machine/user-machine.module';
     AreaModule,
 
     UserMachineModule,
+
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

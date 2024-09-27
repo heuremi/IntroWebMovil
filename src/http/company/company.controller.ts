@@ -11,6 +11,7 @@ import {
 import { CompanyService } from './company.service';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
+import { DeleteResult } from 'mongodb';
 
 @Controller('company')
 export class CompanyController {
@@ -37,7 +38,7 @@ export class CompanyController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: string):Promise<DeleteResult> {
     return this.companyService.remove(id);
   }
 }

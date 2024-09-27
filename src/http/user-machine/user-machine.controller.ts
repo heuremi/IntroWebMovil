@@ -11,6 +11,8 @@ import {
 import { UserMachineService } from './user-machine.service';
 import { CreateUserMachineDto } from './dto/create-user-machine.dto';
 import { UpdateUserMachineDto } from './dto/update-user-machine.dto';
+import { DeleteResult } from 'mongodb';
+
 
 @Controller('user-machine')
 export class UserMachineController {
@@ -37,7 +39,7 @@ export class UserMachineController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: string):Promise<DeleteResult> {
     return this.userMachineService.remove(id);
   }
 }

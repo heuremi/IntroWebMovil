@@ -6,6 +6,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Company } from 'src/schemas/company.schema';
 import { mongoErrorHandler } from 'src/utils/mongo-error-handler';
 import { MongoError } from 'mongodb';
+import { DeleteResult } from 'mongodb';
+
 
 @Injectable()
 export class CompanyService {
@@ -39,7 +41,7 @@ export class CompanyService {
     }
   }
 
-  async remove(id: string) {
+  async remove(id: string):Promise<DeleteResult> {
     return await this.companyModel.deleteOne({ _id: id});
   }
 }

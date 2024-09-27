@@ -6,6 +6,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Area } from 'src/schemas/area.schema';
 import { mongoErrorHandler } from 'src/utils/mongo-error-handler';
 import { MongoError } from 'mongodb';
+import { DeleteResult } from 'mongodb';
 
 @Injectable()
 export class AreaService {
@@ -39,7 +40,7 @@ export class AreaService {
     }
   }
 
-  async remove(id: string) {
+  async remove(id: string): Promise<DeleteResult> {
     return await this.areaModel.deleteOne({ _id: id});
   }
 }

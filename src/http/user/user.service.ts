@@ -6,6 +6,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from 'src/schemas/user.schema';
 import { mongoErrorHandler } from 'src/utils/mongo-error-handler';
 import { MongoError } from 'mongodb';
+import { DeleteResult } from 'mongodb';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -13,7 +15,20 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto) {
     try {
-      return await this.userModel.create(createUserDto);
+      
+      if (!createUserDto.password) {
+        throw new Error('Password is required');
+      }
+
+      
+      const saltOrRounds = 10;
+      const hashedPassword = await bcrypt.hash(createUserDto.password, saltOrRounds);
+
+      // Reemplaza la contraseña con la encriptada antes de guardar el usuario
+      const newUser = { ...createUserDto, password: hashedPassword };
+
+      return await this.userModel.create(newUser);
+      
     } catch (error) {
       if ((error as Record<string, number>)?.code)
         mongoErrorHandler(error as MongoError);
@@ -39,7 +54,7 @@ export class UserService {
     }
   }
 
-  async remove(id: string) {
+  async remove(id: string):Promise<DeleteResult> {
     return await this.userModel.deleteOne({ _id: id });
   }
 }

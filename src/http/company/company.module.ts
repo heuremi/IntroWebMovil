@@ -4,6 +4,7 @@ import { CompanyController } from './company.controller';
 import { Company, CompanySchema } from 'src/schemas/company.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 
+
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Company.name, schema: CompanySchema }]),

@@ -11,6 +11,8 @@ import {
 import { AreaService } from './area.service';
 import { CreateAreaDto } from './dto/create-area.dto';
 import { UpdateAreaDto } from './dto/update-area.dto';
+import { DeleteResult } from 'mongodb';
+
 
 @Controller('area')
 export class AreaController {
@@ -37,7 +39,7 @@ export class AreaController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: string): Promise<DeleteResult> {
     return this.areaService.remove(id);
   }
 }

@@ -6,6 +6,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Machine } from 'src/schemas/machine.schema';
 import { mongoErrorHandler } from 'src/utils/mongo-error-handler';
 import { MongoError } from 'mongodb';
+import { DeleteResult } from 'mongodb';
+
 
 @Injectable()
 export class MachineService {
@@ -39,7 +41,7 @@ export class MachineService {
     }
   }
 
-  async remove(id: string) {
+  async remove(id: string):Promise<DeleteResult> {
     return await this.machineModel.deleteOne({ _id: id});
   }
 }
