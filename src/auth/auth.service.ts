@@ -34,7 +34,9 @@ export class AuthService {
     if(!match){
       throw new HttpException('Wrong email or password', HttpStatus.BAD_REQUEST);
     }
-
+    
+    console.log("Usuario encontrado");
+    
     const userPayload = {
       _id: user?._id,
       name: user?.name,
