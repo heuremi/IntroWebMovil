@@ -23,18 +23,14 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new HttpException('Wrong email or password', HttpStatus.BAD_REQUEST);
+      throw new HttpException('Wrong email', HttpStatus.BAD_REQUEST);
     }
 
     const match = await compare(payload?.password as string, user?.password as string);
     if (!match) {
-      throw new HttpException('Wrong email or password', HttpStatus.BAD_REQUEST);
+      throw new HttpException('Wrong password', HttpStatus.BAD_REQUEST);
     }
 
-    if(!match){
-      throw new HttpException('Wrong email or password', HttpStatus.BAD_REQUEST);
-    }
-    
     console.log("Usuario encontrado");
     
     const userPayload = {
@@ -44,11 +40,18 @@ export class AuthService {
       email: user?.email,
     };
 
-    const accessToken = this.jwtService.sign(userPayload);
+    const accessToken = this.jwtService.sign(userPayload, {
+      secret: this.configService.get('ACCESS_JWT_SECRET'),
+      expiresIn: this.configService.get('ACCESS_JWT_TIME'),
+    });
     const refreshToken = this.jwtService.sign(userPayload, {
       secret: this.configService.get('REFRESH_JWT_SECRET'),
       expiresIn: this.configService.get('REFRESH_JWT_TIME'),
     });
+
+    console.log('Access Token Secret:', accessToken);
+    console.log('Access Token Time:', refreshToken);
+
 
     await this.userHistoryModel.create({
       accessToken,
@@ -93,7 +96,10 @@ export class AuthService {
         email: user?.email,
       };
 
-      const accessToken = this.jwtService.sign(userPayload);
+      const accessToken = this.jwtService.sign(userPayload, {
+        secret: this.configService.get('ACCESS_JWT_SECRET'),
+        expiresIn: this.configService.get('ACCESS_JWT_TIME'),
+      });
       const refreshToken = this.jwtService.sign(userPayload, {
         secret: this.configService.get('REFRESH_JWT_SECRET'),
         expiresIn: this.configService.get('REFRESH_JWT_TIME'),
