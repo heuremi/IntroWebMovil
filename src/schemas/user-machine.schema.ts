@@ -4,10 +4,10 @@ import { Document } from 'mongoose';
 @Schema()
 export class UserMachine extends Document {
   @Prop({ type: String, required: true })
-  name?: string;
+  idUser?: string;
 
-  @Prop({ type: String })
-  descripcion?: string;
+  @Prop({ type: Number, required: true })
+  idMachine?: string;
 
 }
 

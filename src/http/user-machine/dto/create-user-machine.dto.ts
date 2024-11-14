@@ -1,8 +1,8 @@
 import { IsNotEmpty, IsOptional } from 'class-validator';
 export class CreateUserMachineDto {
     @IsNotEmpty()
-    name?: string;
+    idUser?: String;
 
-    @IsOptional()
-    descripcion?: string;
+    @IsNotEmpty()
+    idMachine?: string;
 }
