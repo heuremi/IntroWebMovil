@@ -14,14 +14,24 @@ export class UserMachineService {
   constructor(@InjectModel(UserMachine.name) private userMachineModel: Model<UserMachine>) {}
 
   async create(createUserMachineDto: CreateUserMachineDto) {
-    try {
-      return await this.userMachineModel.create(createUserMachineDto);
-    } catch (error) {
-      if ((error as Record<string, number>)?.code)
-        mongoErrorHandler(error as MongoError);
-      throw new Error(error as string);
+    const { idUser, idMachine } = createUserMachineDto;
+  
+    const machineExists = await this.machineModel.exists({ _id: idMachine });
+    if (!machineExists) {
+      throw new Error('La máquina especificada no existe.');
     }
+  
+    return this.userMachineModel.create(createUserMachineDto);
   }
+  
+
+  async findMachinesByUser(userId: string): Promise<any[]> {
+    return this.userMachineModel
+      .find({ idUser: userId })
+      .populate('idMachine')
+      .exec();
+  }
+  
 
   async findAll() {
     return await this.userMachineModel.find().exec();

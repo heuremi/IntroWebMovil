@@ -1,14 +1,12 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
 @Schema()
 export class UserMachine extends Document {
-  @Prop({ type: String, required: true })
-  idUser?: string;
+  @Prop({ type: Types.ObjectId, required: true, ref: 'User' })
+  idUser?: Types.ObjectId;
 
-  @Prop({ type: Number, required: true })
-  idMachine?: string;
-
+  @Prop({ type: Types.ObjectId, required: true, ref: 'Machine' })
+  idMachine?: Types.ObjectId;
 }
-
 export const UserMachineSchema = SchemaFactory.createForClass(UserMachine);

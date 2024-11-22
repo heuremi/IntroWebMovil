@@ -42,4 +42,9 @@ export class UserMachineController {
   remove(@Param('id') id: string):Promise<DeleteResult> {
     return this.userMachineService.remove(id);
   }
+
+  @Get('user/:userId/machines')
+  async findMachinesByUser(@Param('userId') userId: string) {
+    return this.userMachineService.findMachinesByUser(userId);
+  } 
 }

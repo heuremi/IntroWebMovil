@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { User } from './user.schema'; // Ajustar la ruta según tu estructura de proyecto
+import { User } from './user.schema';
 
 @Schema()
 export class UserHistory extends Document {

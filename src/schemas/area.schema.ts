@@ -7,9 +7,6 @@ export class Area extends Document {
   @Prop({ type: String, required: true })
   name?: string;
 
-  //@Prop({ type: [MachineSchema], default: [] })
-  //machines?: Machine[];
-
   @Prop({ type: Date })
   createdAt?: Date;
 

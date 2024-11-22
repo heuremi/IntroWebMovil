@@ -6,20 +6,17 @@ import {
   Patch,
   Param,
   Delete,
-  UseFilters,
 } from '@nestjs/common';
 import { MachineService } from './machine.service';
 import { CreateMachineDto } from './dto/create-machine.dto';
 import { UpdateMachineDto } from './dto/update-machine.dto';
-import { DeleteResult } from 'mongodb';
-
 
 @Controller('machine')
 export class MachineController {
   constructor(private readonly machineService: MachineService) {}
 
   @Post()
-  create(@Body() createMachineDto: CreateMachineDto) {
+  async create(@Body() createMachineDto: CreateMachineDto) {
     return this.machineService.create(createMachineDto);
   }
 
@@ -34,12 +31,12 @@ export class MachineController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMachineDto: UpdateMachineDto) {
+  async update(@Param('id') id: string, @Body() updateMachineDto: UpdateMachineDto) {
     return this.machineService.update(id, updateMachineDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string):Promise<DeleteResult> {
+  async remove(@Param('id') id: string) {
     return this.machineService.remove(id);
   }
 }
