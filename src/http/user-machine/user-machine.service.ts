@@ -16,7 +16,7 @@ export class UserMachineService {
   async create(createUserMachineDto: CreateUserMachineDto) {
     const { idUser, idMachine } = createUserMachineDto;
   
-    const machineExists = await this.machineModel.exists({ _id: idMachine });
+    const machineExists = await this.userMachineModel.exists({ _id: idMachine });
     if (!machineExists) {
       throw new Error('La máquina especificada no existe.');
     }
